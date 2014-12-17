@@ -6,6 +6,27 @@ Bringing together everything you need out of the box - familiar BDD features/sce
 Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs), [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/).
 
 
+* [Install](#install)
+* [Configure](#configure)
+* [Run](#run-your-tests)
+* [Example Project](#example-project)
+* [Writing Your Tests](#writing-your-tests)
+* [Page Objects](#page-objects)
+* [Components](#components)
+* [Assertions](#assertions)
+* [CoffeeScript](#coffeescript)
+* [Running your tests in parallel](#running-your-tests-in-parallel)
+* [Reporting](#reporting)
+* [Page object reference](#page-object-reference)
+* [Session reference](#session-reference)
+* [TODO](#todo)
+
+### Latest version
+
+The current version of Moonraker is 0.1.6. Recent changes include:
+* Added CoffeeScript support - step defs / page objects can be implemented using CoffeeScript.
+
+
 ### Install
 
 Moonraker can be installed via [npm](https://www.npmjs.org/) - `$ npm install moonraker`, or add `moonraker` to your `package.json`.
@@ -119,7 +140,6 @@ To create a page object:
 
 ```javascript
 // tests/pages/home.js
-
 var Page = require('moonraker').Page;
 
 module.exports = new Page({
@@ -145,7 +165,6 @@ You can then use your page objects in your step definitions:
 
 ```javascript
 // tests/steps/home-search-steps.js
-
 var homePage = require('../pages/home'),
     searchResults = require('../pages/search-results');
 
@@ -177,7 +196,6 @@ Components are exactly like page objects and allow you to group elements togethe
 
 ```javascript
 // tests/pages/components/nav.js
-
 var Component = require('moonraker').Component
 
 module.exports = new Component({
@@ -190,16 +208,13 @@ module.exports = new Component({
 
 ```javascript
 // tests/pages/home.js
-
 var Page = require('moonraker').Page,
     nav = require('./components/nav');
 
 module.exports = new Page({
 
   url: { value: '/' },
-
   nav: { get: function () { return this.component(nav, "section[class='header']"); } },
-
   ...
 
 });
@@ -216,7 +231,6 @@ Using your components:
 
 ```javascript
 // tests/steps/home-search-steps.js
-
 var homePage = require('../pages/home');
 
 exports.define = function (steps) {
@@ -238,6 +252,44 @@ exports.define = function (steps) {
 
 The 'should' style of the [Chai](http://chaijs.com/guide/styles/) assertion library is available to use in your step definitions.
 
+### CoffeeScript
+
+You can use CoffeeScript for your step definitions and page objects if you prefer:
+
+```coffee
+# /pages/home.coffee
+Page = require('moonraker').Page
+
+module.exports = new Page
+
+  url: value: '/'
+
+  txtSearch: get: () -> @element "input[id='txtSearch']"
+  btnSearch: get: () -> @element ".btn-primary"
+
+  searchFor: value: (query) ->
+    @txtSearch.sendKeys query
+    @btnSearch.click()
+```
+
+```coffee
+# /steps/home-search-steps.coffee
+homePage = require '../pages/home'
+searchResults = require '../pages/search-results'
+
+exports.define = (steps) ->
+
+  steps.given "I visit the home page", () ->
+    homePage.visit()
+
+  steps.when "I search for '$query'", (query) ->
+    homePage.txtSearch.sendKeys query
+    homePage.btnSearch.click()
+
+  steps.then "I should see '$heading' in the heading", (heading) ->
+    searchResults.heading.getText().then (text) ->
+      text.should.equal heading
+```
 
 ### Running your tests in parallel
 
@@ -277,6 +329,10 @@ module.exports = new Page({
   aSelect:    { get: function () { return this.select("select[name='rt-child']"); } },
   aLink:      { get: function () { return this.link("London Hotels"); } },
   aComponent: { get: function () { return this.component(yourComponent, "div[class='container']"); } },
+
+  onLoad: { value: function () {
+    // Some code I want to run when the page is loaded.
+  } }
 
 });
 ```
@@ -321,6 +377,7 @@ search: { value: function (query) {
 ```
 
 * `alert()` - Attempts to switch to the current alert dialog. e.g: `examplePage.alert.accept();`.
+* `onLoad()` - An optional function you can define that is run when the page is loaded.
 
 Components are the same and have access to the same element methods, but not the page specific ones: `visit()`, `title()`, `alert()` & `component()`.
 Please see the official [selenium webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs) documentation for further information on working with elements.
