@@ -6,7 +6,7 @@ Il fournit en une fois tout ce dont vous avez besoin - des fonctionnalités/scé
 Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs), [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/).
 
 
-* [Installation](#install)
+* [Installation](#Installation)
 * [Configuration](#configure)
 * [Exécution de vos tests](#run-your-tests)
 * [Projet exemple](#example-project)
@@ -21,7 +21,7 @@ Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 * [Session reference](#session-reference)
 * [TODO](#todo)
 
-_note: ceci est la traduction française du [README](README) :uk: original_
+:fr: _note: ceci est la traduction française du [README](./README) original_
 
 ### Dernière version
 
@@ -133,7 +133,7 @@ exports.define = function (steps) {
 
 ```
 
-Bien que Yadda puisse gérer de nombreuses bibliothèques, Moonrake charge actuellement toutes les définitions d'étapes trouvées dans votre répertoire d'étapes dans une seule grosse bibliothèque si bien que, tout comme avec Cucumber, vous devez veiller attentivement à ne pas avoir de conflits dnas les noms d'étapes.
+Bien que Yadda puisse gérer de nombreuses bibliothèques, Moonraker charge actuellement toutes les définitions d'étapes trouvées dans votre répertoire d'étapes dans une seule grosse bibliothèque si bien que, tout comme avec Cucumber, vous devez veiller attentivement à ne pas avoir de conflits dnas les noms d'étapes.
 
 ### Objets page 
 
