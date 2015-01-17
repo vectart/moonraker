@@ -10,7 +10,7 @@ Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 * [Configuration](#configuration)
 * [Exécution de vos tests](#exécution-de-vos-tests)
 * [Projet exemple](#projet-exemple)
-* [Écriture de vos tests](#écriture-de-vos-tests)
+* [Ecriture de vos tests](#ecriture-de-vos-tests)
 * [Objets page](#objets-page)
 * [Components](#components)
 * [Assertions](#assertions)
@@ -21,7 +21,7 @@ Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 * [Référence des sessions](#référence-des-sessions)
 * [A FAIRE](#a-faire)
 
-_note: ceci est la traduction française du [README](./README) original_
+_note: ceci est la traduction française du [README](./README.md) original_
 
 ### Dernière version
 
@@ -98,7 +98,7 @@ Vous trouverez un projet exemple complet dans le répertoire `/example` avec tou
 
 Les tests d'exemple utilisent Chrome donc vous aurez besoin de télécharger la dernière version de [chromedriver](http://chromedriver.storage.googleapis.com/index.html) et de le rendre accessible dans votre path.
 
-### Écriture de vos tests
+### Ecriture de vos tests
 
 Les tests pour Moonraker sont écrits en utilisant [Yadda](https://github.com/acuminous/yadda), une implémentation BDD très semblable à [Cucumber](http://cukes.info/) et en utilisant le framework de test JavaScript [Mocha](http://visionmedia.github.io/mocha/).
 
@@ -319,7 +319,7 @@ Le rapport html comporte les détails de toutes les erreurs et les captures d'é
 
 ### Référence des objets page
 
-Comme le montrent les exemples, toutes les interactions avec les éléments des pages (et le pilote sous-jacent) sont abstrait dans vos objets page. Quand vous créez un objet page, vous disposez de plusieurs façons pour y attacher des éléments de façon à ce que vous puissiez interagir avec eux dans vos définitions d'étapes:
+Comme le montrent les exemples, toutes les interactions avec les éléments des pages (et le pilote sous-jacent) sont abstraites dans vos objets page. Quand vous créez un objet page, vous disposez de plusieurs façons pour y attacher des éléments de façon à ce que vous puissiez interagir avec eux dans vos définitions d'étapes:
 
 ```javascript
 var Page = require('moonraker').Page;
