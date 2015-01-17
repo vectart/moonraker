@@ -6,8 +6,8 @@ Il fournit en une fois tout ce dont vous avez besoin - des fonctionnalités/scé
 Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs), [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/).
 
 
-* [Installation](#Installation)
-* [Configuration](#configure)
+* [Installation](#installation)
+* [Configuration](#configuration)
 * [Exécution de vos tests](#run-your-tests)
 * [Projet exemple](#example-project)
 * [Écriture de vos tests](#writing-your-tests)
