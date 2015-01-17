@@ -8,20 +8,20 @@ Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 * [Installation](#installation)
 * [Configuration](#configuration)
-* [Exécution de vos tests](#run-your-tests)
-* [Projet exemple](#example-project)
-* [Écriture de vos tests](#writing-your-tests)
-* [Objets page](#page-objects)
+* [Exécution de vos tests](#exécution-de-vos-tests)
+* [Projet exemple](#projet-exemple)
+* [Écriture de vos tests](#écriture-de-vos-tests)
+* [Objets page](#objets-page)
 * [Components](#components)
 * [Assertions](#assertions)
 * [CoffeeScript](#coffeescript)
-* [Exécution de vos tests en parallèle](#running-your-tests-in-parallel)
-* [Génération des rapports](#reporting)
-* [Page object reference](#page-object-reference)
-* [Session reference](#session-reference)
-* [TODO](#todo)
+* [Exécution de vos tests en parallèle](#exécution-de-vos-tests-en-parallèle)
+* [Génération des rapports](#génération-de-rapports)
+* [Référence des objets page](#référence-des-objets-page)
+* [Référence des sessions](#référence-des-sessions)
+* [A FAIRE](#a-faire)
 
-:fr: _note: ceci est la traduction française du [README](./README) original_
+_note: ceci est la traduction française du [README](./README) original_
 
 ### Dernière version
 
@@ -63,7 +63,7 @@ Moonraker est configuré en utilisant un fichier `config.json` à la racine de v
 * `featuresDir`    - Le chemin d'accès à votre répertoire de fonctionnalités.
 * `stepsDir`       - Le chemin d'accès à votre répertoire de définitions d'étapes.
 * `resultsDir`     - Le chemin d'accès dans lequel vous souhaitez que vos résultats soient générés.
-* `reporter`       - Le type de générateur de rapport que vous souhaitez que Moonraker utilise (plus d'information sur ce sujet [plus bas](#reporting)).
+* `reporter`       - Le type de générateur de rapport que vous souhaitez que Moonraker utilise (plus d'information sur ce sujet [plus bas](#génération-de-rapports)).
 * `threads`        - Le nombre de processus que vous souhaitez utiliser pour l'exécution des tests.
 * `testTimeout`    - Le délai maximum de test (étape de scénario) au-delà duquel il sera indiqué en échec (ms).
 * `elementTimeout` - Le temps maximum pendant lequel selenium essaiera de trouver un élément dans une page. 
@@ -162,7 +162,7 @@ module.exports = new Page({
 
 Chaque page possède une url, certains éléments et des méthodes utilitaures dont vous pourriez avoir besoin.
 
-Les éléments sont récupérés en utilisant des sélecteurs css et retourne un web-element selenium avec lesquels on peut interagir [comme à l'acoutumée](https://code.google.com/p/selenium/wiki/WebDriverJs). Une référence complète peut être trouvée [plus loin](#page-object-reference).
+Les éléments sont récupérés en utilisant des sélecteurs css et retourne un web-element selenium avec lesquels on peut interagir [comme à l'acoutumée](https://code.google.com/p/selenium/wiki/WebDriverJs). Une référence complète peut être trouvée [plus loin](#référence-des-objets-page).
 
 Vous pouvez alors utiliser vos objets page dans vos définitions d'étapes:
 
@@ -386,7 +386,7 @@ search: { value: function (query) {
 Les composants sont identiques et ont accès aux mêmes méthodes d'élément mais pas à ceux spécifiques aux pages : `visit()`, `title()`, `alert()` & `component()`.
 Voir la documentation officielle de [selenium webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs) pour plus d'information sur la manière de travailler avec les éléments.
 
-### Session reference
+### Référence des sessions
 
 Moonraker utilise un objet session pour regrouper les fonctions concernant la session actuelle de test et qui peut être utilisé dans vos définitions d'étapes, etc:
 ```javascript
