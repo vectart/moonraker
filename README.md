@@ -13,6 +13,7 @@ Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 * [Writing Your Tests](#writing-your-tests)
 * [Page Objects](#page-objects)
 * [Components](#components)
+* [Feature Tags](#feature-tags)
 * [Assertions](#assertions)
 * [CoffeeScript](#coffeescript)
 * [Running your tests in parallel](#running-your-tests-in-parallel)
@@ -23,8 +24,12 @@ Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 ### Latest version
 
-The current version of Moonraker is 0.1.6. Recent changes include:
-* Added CoffeeScript support - step defs / page objects can be implemented using CoffeeScript.
+The current version of Moonraker is 0.2.0. Recent changes include:
+* Locator types can be configured per element:
+    - Instead of just using css selectors you can optionally specify which locator type to use when you set your elements in a page/component object.
+    - E.G - `this.element('//a/b/c', 'xpath');`. If no locator type is supplied the current default of 'css' is used. All of [Selenium's locator](https://code.google.com/p/selenium/source/browse/javascript/webdriver/locators.js#212) types are supported.
+    - Note - The `link(linkText)` page object method has now been removed as this change has made it redundant.
+* Readme was kindly translated to French by [poum](https://github.com/poum).
 
 
 ### Install
@@ -45,6 +50,8 @@ Moonraker is configured using a `config.json` file in your project root:
   "reporter": "moonraker",
   "threads": 1,
 
+  "tags": "@booking",
+
   "testTimeout": 60000,
   "elementTimeout": 5000,
 
@@ -63,6 +70,7 @@ Moonraker is configured using a `config.json` file in your project root:
 * `resultsDir`     - The path you'd like your results output to.
 * `reporter`       - The reporter type you'd like Moonraker to use (more on this [below](#reporting)).
 * `threads`        - The number of threads you'd like to run with.
+* `tags`           - Comma seperated list of feature tags (more on this [below](#feature-tags)).
 * `testTimeout`    - The maximum test (scenario step) timeout before its marked as a fail (ms).
 * `elementTimeout` - The maximum time selenium will continuously try to find an element on the page.
 * `browser`        - An object describing your browser [desired capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities).
@@ -147,7 +155,7 @@ module.exports = new Page({
   url: { value: '/' },
 
   txtSearch: { get: function () { return this.element("input[id='txtSearch']"); } },
-  btnSearch: { get: function () { return this.element("button[class='btn-primary']"); } },
+  btnSearch: { get: function () { return this.element('btn-primary', 'className'); } },
 
   searchFor: { value: function (query) {
     this.txtSearch.sendKeys(query);
@@ -159,7 +167,7 @@ module.exports = new Page({
 
 Each page has a url, some elements and any convenient methods that you may require.
 
-Elements are found by css selector and return a selenium web-element which can be interacted with as [per usual](https://code.google.com/p/selenium/wiki/WebDriverJs). A full reference can be found [below](#page-object-reference).
+Elements are found by css selector (or optionally another locator type can be specified) and return a selenium web-element which can be interacted with as [per usual](https://code.google.com/p/selenium/wiki/WebDriverJs). A full reference can be found [below](#page-object-reference).
 
 You can then use your page objects in your step definitions:
 
@@ -248,6 +256,23 @@ exports.define = function (steps) {
 
 ```
 
+### Feature Tags
+
+Moonraker supports feature tags to help keep things organized and allow you to selectively run certain features:
+
+```
+@testing
+Feature: Searching from the homepage
+
+  Scenario: Simple Search
+
+    Given I visit the home page
+    ...
+```
+
+In your config.json (or overridden by command-line args / environment variables) you can specify `"tags": "@testing"` to only run features with that tag or use `'!@testing'` to ignore those features. You can also use a comma seperated list - `@accounts,@booking` etc. Features tagged as `@Pending` will be skipped but included as pending features in the Moonraker test report.
+
+
 ### Assertions
 
 The 'should' style of the [Chai](http://chaijs.com/guide/styles/) assertion library is available to use in your step definitions.
@@ -327,11 +352,10 @@ module.exports = new Page({
   aTxtInput:  { get: function () { return this.element("input[id='txtSearch']"); } },
   buttons:    { get: function () { return this.elements("button"); } },
   aSelect:    { get: function () { return this.select("select[name='rt-child']"); } },
-  aLink:      { get: function () { return this.link("London Hotels"); } },
   aComponent: { get: function () { return this.component(yourComponent, "div[class='container']"); } },
 
   onLoad: { value: function () {
-    // Some code I want to run when the page is loaded.
+    // Some code to run immediately after the page is loaded.
   } }
 
 });
@@ -339,9 +363,9 @@ module.exports = new Page({
 
 * Setting a url value is for when you call `visit()` on your page object. e.g: `examplePage.visit();`. These url's are relative to the baseUrl set in your config, but if you set a full url like `http://www.example.com` the baseUrl will be ignored. Additionally, `visit()` can take an optional query object: `examplePage.visit({ foo: 'bar', baz: 'qux' });` will visit `http://yourBaseUrl/search?foo=bar&baz=qux`.
 
-* `element(cssSelector)` - is used to find a specific element by css selector and returns a selenium element. e.g: `examplePage.aTxtInput.click();`
+* `element(selector, type)` - is used to find a specific element by selector type and returns a selenium webelement. The type is optional and if not supplied the default of 'css' is used (as in the examples above). You can specify another locator type if required - `this.element('//a/b/c', 'xpath')`. Elements are then accessed from your page objects: `examplePage.aTxtInput.click();`. All of [Selenium's locator](https://code.google.com/p/selenium/source/browse/javascript/webdriver/locators.js#212) types are supported.
 
-* `elements(cssSelector)` - is used to find all elements that satisfy the selector and returns a collection of selenium elements. e.g:
+* `elements(selector, type)` - is used to find all elements on the page that satisfy the selector and returns a collection of selenium webelements. e.g:
 ```javascript
 examplePage.buttons.then(function (elems) {
   elems.forEach(function (elem) {
@@ -350,9 +374,7 @@ examplePage.buttons.then(function (elems) {
 });
 ```
 
-* `select(cssSelector)` - is the same as `element` but includes a helper `selectOption(optionValue)` to select an option by value from your select elements. e.g: `examplePage.aSelect.selectOption(3);`
-
-* `link(linkText)` - is used to find links by full or partial link text.
+* `select(selector, type)` - is the same as `element` but adds a helper `selectOption(optionValue)` to the element to enable easy option selection. e.g: `examplePage.aSelect.selectOption(3);`
 
 * `component(yourComponent, rootNode)` - Attaches a component you have defined to your page. Please see [components](#components).
 
@@ -391,6 +413,7 @@ session.resizeWindow(320, 480);
 ```
 
 * `execute(fn)` - Adds any function to webdriver's control flow. Please see [control flows](https://code.google.com/p/selenium/wiki/WebDriverJs#Control_Flows).
+* `defer()` - Returns a webdriver.promise.defer() object. Please see [deferred objects](https://code.google.com/p/selenium/wiki/WebDriverJs#Deferred_Objects).
 * `resizeWindow(x, y)` - Resizes the browser window. By default its maximized.
 * `refresh()` - Refreshes the current page.
 * `saveScreenshot(filename)` - Saves a screenshot to `/yourResultsDir/screenshots/filename`. This is called automatically on test failure.
