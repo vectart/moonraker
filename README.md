@@ -64,17 +64,20 @@ Moonraker is configured using a `config.json` file in your project root:
 }
 ```
 
-* `baseUrl`        - Your base url, page object urls will be relative to this.
-* `featuresDir`    - The path to your features directory.
-* `stepsDir`       - The path to your step definitions directory.
-* `resultsDir`     - The path you'd like your results output to.
+* `baseUrl`        - Your base url, page object urls will be relative to this.*
+* `featuresDir`    - The path to your features directory.*
+* `stepsDir`       - The path to your step definitions directory.*
+* `resultsDir`     - The path you'd like your results output to. (Default: /results)
 * `reporter`       - The reporter type you'd like Moonraker to use (more on this [below](#reporting)).
-* `threads`        - The number of threads you'd like to run with.
-* `tags`           - Comma seperated list of feature tags (more on this [below](#feature-tags)).
-* `testTimeout`    - The maximum test (scenario step) timeout before its marked as a fail (ms).
-* `elementTimeout` - The maximum time selenium will continuously try to find an element on the page.
-* `browser`        - An object describing your browser [desired capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities).
+* `threads`        - The number of threads you'd like to run with. (Default: 1)
+* `tags`           - Optional: Comma seperated list of feature tags (more on this [below](#feature-tags)).
+* `testTimeout`    - The maximum test (scenario step) timeout before its marked as a fail (ms). (Default: 60000)
+* `elementTimeout` - The maximum time selenium will continuously try to find an element on the page (ms). (Default: 3000)
+* `browser`        - An object describing your browser [desired capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities).*
 * `seleniumServer` - Optional: Address of your remote selenium standalone server.
+
+
+\* - Required.
 
 The example configuration above assumes using Chrome directly, to connect to a remote selenium server just add your server address to your `config.json`:
 
