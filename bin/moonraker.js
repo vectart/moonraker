@@ -7,10 +7,11 @@ var config       = require('moonraker').config,
     Yadda        = require('yadda'),
     builder      = require('../lib/reporter/builder');
 
+checkConfig();
 resetWorkSpace();
 
 var features = parseFeatures(config.featuresDir);
-var queues   = createQueues(features, config.threads);
+var queues   = createQueues(features, config.threads || 1);
 var failed   = false;
 var tags;
 
@@ -28,10 +29,11 @@ process.on('exit', function() {
 });
 
 function resetWorkSpace() {
-  if (fs.existsSync(config.resultsDir)) {
-    wrench.rmdirSyncRecursive(config.resultsDir);
+  var resultsDir = config.resultsDir || 'results';
+  if (fs.existsSync(resultsDir)) {
+    wrench.rmdirSyncRecursive(resultsDir);
   }
-  wrench.mkdirSyncRecursive(path.join(config.resultsDir, 'screenshots'));
+  wrench.mkdirSyncRecursive(path.join(resultsDir, 'screenshots'));
 }
 
 function parseFeatures(dir) {
@@ -93,3 +95,17 @@ function isTagMatch(tagsArr, annotations) {
   });
   return match;
 }
+
+function checkConfig() {
+  if (!config.browser) throw new ConfigError('browser');
+  if (!config.baseUrl) throw new ConfigError('baseUrl');
+  if (!config.featuresDir) throw new ConfigError('featuresDir');
+  if (!config.stepsDir) throw new ConfigError('stepsDir');
+}
+
+function ConfigError(opt) {
+  this.name = 'ConfigError';
+  this.message = "'" + opt + "' missing from Moonraker config.";
+}
+
+ConfigError.prototype = new Error();
