@@ -14,16 +14,16 @@
   },
 
   "french": {
-    "title": "Rapport d'essai",
+    "title": "Rapport de test",
     "duration": "Durée",
     "threads": "Processus",
     "feature": "Fonctionnalité",
     "scenario": "Scénario",
-    "passed": "Passé",
+    "passed": "Exécuté",
     "success": "Succès",
-    "failed": "Manqué",
-    "pending": "En attendant",
-    "skipped": "Arrêté"
+    "failed": "En échec",
+    "pending": "En attente",
+    "skipped": "Ignoré"
   },
 
   "german": {
