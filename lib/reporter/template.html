@@ -25,22 +25,22 @@
             </a>
             {{#with stats}}
             <ul class="stats">
-                <li><span>Passes:</span> <strong>{{passes}}</strong></li>
-                <li><span>Failures:</span> <strong>{{failures}}</strong></li>
-                <li><span>Skipped:</span> <strong>{{skipped}}</strong></li>
-                <li>Duration: <strong>{{duration}}s</strong></li>
-                <li>Threads: <strong>{{threads}}</strong></li>
+                <li><span>{{i18n 'passed'}}:</span> <strong>{{passes}}</strong></li>
+                <li><span>{{i18n 'failed'}}:</span> <strong>{{failures}}</strong></li>
+                <li><span>{{i18n 'skipped'}}:</span> <strong>{{skipped}}</strong></li>
+                <li>{{i18n 'duration'}}: <strong>{{duration}}s</strong></li>
+                <li>{{i18n 'threads'}}: <strong>{{threads}}</strong></li>
             </ul>
             {{/with}}
         </div>
     </nav>
 
     <section class="reporter container">
-        <h1>Test Report</h1>
+        <h1>{{i18n 'title'}}</h1>
 
         {{#features}}
         <section class="feature">
-            <h2><span>Feature:</span> {{title}}</h2>
+            <h2><span>{{i18n 'feature'}}:</span> {{title}}</h2>
             <ul class="info">
             {{#each description}}
                 <li>{{ this }}</li>
@@ -53,15 +53,15 @@
                     <thead class="scenario-header dd">
                         <tr>
                             <th>
-                                <div class="scenario-text">Scenario: {{title}}</div>
+                                <div class="scenario-text">{{i18n 'scenario'}}: {{title}}</div>
                                 {{#ifEqual status 'pass'}}
-                                <span class="label label-success">Success</span>
+                                <span class="label label-success">{{i18n 'success'}}</span>
                                 {{/ifEqual}}
                                 {{#ifEqual status 'pending'}}
-                                <span class="label label-primary">Pending</span>
+                                <span class="label label-primary">{{i18n 'pending'}}</span>
                                 {{/ifEqual}}
                                 {{#ifEqual status 'fail'}}
-                                <span class="label label-danger">Failed</span>
+                                <span class="label label-danger">{{i18n 'failed'}}</span>
                                 {{/ifEqual}}
                             </th>
                         </tr>
@@ -72,7 +72,7 @@
                         <tr>
                             <td>
                                 <div class="scenario-text">{{title}}</div>
-                                <span class="label label-success">Success</span>
+                                <span class="label label-success">{{i18n 'success'}}</span>
                             </td>
                         </tr>
                         {{/ifEqual}}
@@ -80,7 +80,7 @@
                         <tr>
                             <td>
                                 <div class="scenario-text">{{title}}</div>
-                                <span class="label label-primary">Pending</span>
+                                <span class="label label-primary">{{i18n 'pending'}}</span>
                             </td>
                         </tr>
                         {{/ifEqual}}
@@ -88,7 +88,7 @@
                         <tr>
                             <td>
                                 <div class="scenario-text">{{title}}</div>
-                                <span class="label label-danger">Failed</span>
+                                <span class="label label-danger">{{i18n 'failed'}}</span>
                                 <div class="error-info">
                                     <h3>Error:</h3>
                                     <code class="error">{{error}}</code>
@@ -102,7 +102,7 @@
                         <tr>
                             <td>
                                 <div class="scenario-text">{{title}}</div>
-                                <span class="label label-warning">Skipped</span>
+                                <span class="label label-warning">{{i18n 'skipped'}}</span>
                             </td>
                         </tr>
                         {{/ifEqual}}
