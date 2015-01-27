@@ -9,7 +9,7 @@ var config       = require('moonraker').config,
 checkConfig();
 resetWorkSpace();
 
-var features = parser.parseFeatures(config.featuresDir);
+var features = parser.parseFeatures(config.featuresDir, config.tags, config.language);
 var queues   = createQueues(features, config.threads || 1);
 var failed   = false;
 
