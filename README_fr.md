@@ -1,7 +1,7 @@
 ![Moonraker Logo](https://dl.dropboxusercontent.com/u/6598543/logo-black.png)
 
-Un framework de test web léger et facile à utiliser pour Node. Il a été conçu  pour être rapide et favoriser la maintenabilité et le travail d'équipe.
-Il fournit en une fois tout ce dont vous avez besoin - des fonctionnalités/scénarios BDD habituels, une bibliothèque simple de d'objets page, un capacité de parallélisation des tests et des rapports sexy.
+Un framework de test web léger et facile à utiliser pour Node. Il a été conçu pour être rapide et favoriser la maintenabilité et le travail d'équipe.
+Il fournit en une fois tout ce dont vous avez besoin - des fonctionnalités/scénarios BDD habituels, une bibliothèque simple d'objets page, une capacité de parallélisation des tests et des rapports sexy.
 
 Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs), [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/).
 
@@ -13,6 +13,7 @@ Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 * [Ecriture de vos tests](#ecriture-de-vos-tests)
 * [Objets page](#objets-page)
 * [Components](#components)
+* [Etiquettes de fonctionnalités](#etiquettes-de-fonctionnalités)
 * [Assertions](#assertions)
 * [CoffeeScript](#coffeescript)
 * [Exécution de vos tests en parallèle](#exécution-de-vos-tests-en-parallèle)
@@ -25,8 +26,12 @@ _note: ceci est la traduction française du [README](./README.md) original_
 
 ### Dernière version
 
-La version actuelle de Moonraker est la 0.1.6. Les changements récents comprennent :
-* Ajout de la prise en charge de CoffeeScript - les définitions d'étapes / les objets page peuvent être implémentés en utilisant CoffeeScript.
+La version actuelle de Moonraker est la 0.2.0. Les changements récents comprennent :
+* Les types de sélecteurs peuvent être configurés élément par élément:
+ - Au lieu de ne pouvoir utiliser que les sélecteurs CSS, vous pouvez indiquer de manière optionnelle le type de sélecteur à utiliser quand vous configurez vos éléments dans un objet page/composant.
+ - Ex. - `this.element('//a/b/c', 'xpath');`. Si aucun type de sélecteur n'est indiqué, c'est la valeur par défaut actuelle 'css' qui est utilisée. Tous les types de [sélecteurs de Selenium](https://code.google.com/p/selenium/source/browse/javascript/webdriver/locators.js#212) sont pris en charge.
+ - Note - La méthode de l'objet page `link(linkText)` est désormais supprimée car la modification précédente l'a rendue redondante.
+* Traduction du Readme en français [poum](https://github.com/poum).
 
 
 ### Installation
@@ -47,6 +52,8 @@ Moonraker est configuré en utilisant un fichier `config.json` à la racine de v
   "reporter": "moonraker",
   "threads": 1,
 
+  "tags": "@booking",
+
   "testTimeout": 60000,
   "elementTimeout": 5000,
 
@@ -65,6 +72,7 @@ Moonraker est configuré en utilisant un fichier `config.json` à la racine de v
 * `resultsDir`     - Le chemin d'accès dans lequel vous souhaitez que vos résultats soient générés.
 * `reporter`       - Le type de générateur de rapport que vous souhaitez que Moonraker utilise (plus d'information sur ce sujet [plus bas](#génération-de-rapports)).
 * `threads`        - Le nombre de processus que vous souhaitez utiliser pour l'exécution des tests.
+* `tags`           - Liste d'étiquettes de fonctionnalités séparées par des virgules (davantage d'informations à ce sujet [plus bas](#feature-tags)).
 * `testTimeout`    - Le délai maximum de test (étape de scénario) au-delà duquel il sera indiqué en échec (ms).
 * `elementTimeout` - Le temps maximum pendant lequel selenium essaiera de trouver un élément dans une page. 
 * `browser`        - Un objet décrivant les [fonctionnalités souhaitées](https://code.google.com/p/selenium/wiki/DesiredCapabilities) pour votre navigateur.
@@ -90,7 +98,7 @@ Pour lancer Moonraker, exécutez `$ node node_modules/moonraker/bin/moonraker.js
   }
 }
 ```
-... de telles sorte que vous puissiez simplement exécuter `$ npm test`. Notez que vous ne pouvez pas passer de paramètres en ligne de commande en utilisant le raccourci `$ npm test` shortcut.
+... de telles sorte que vous puissiez simplement exécuter `$ npm test`. Notez que vous ne pouvez pas passer de paramètres en ligne de commande en utilisant le raccourci `$ npm test`.
 
 ### Projet exemple
 
@@ -102,7 +110,7 @@ Les tests d'exemple utilisent Chrome donc vous aurez besoin de télécharger la 
 
 Les tests pour Moonraker sont écrits en utilisant [Yadda](https://github.com/acuminous/yadda), une implémentation BDD très semblable à [Cucumber](http://cukes.info/) et en utilisant le framework de test JavaScript [Mocha](http://visionmedia.github.io/mocha/).
 
-Tout comme Cucumber, Yadda relie des étapes écrites en langage naturel à du code, mais peut être plus flexible en ne vous limitant pas à une syntaxe rigide (Etant donné, Quand, Alors / Given, When, Then) mais en vous permettant de définir la vôtre ...
+Tout comme Cucumber, Yadda relie des étapes écrites en langage naturel à du code, mais peut être plus flexible en ne vous restreignant pas à une syntaxe rigide (Etant donné, Quand, Alors / Given, When, Then) mais en vous permettant de définir la vôtre ...
 
 ```
 Feature: Searching from the homepage
@@ -133,7 +141,7 @@ exports.define = function (steps) {
 
 ```
 
-Bien que Yadda puisse gérer de nombreuses bibliothèques, Moonraker charge actuellement toutes les définitions d'étapes trouvées dans votre répertoire d'étapes dans une seule grosse bibliothèque si bien que, tout comme avec Cucumber, vous devez veiller attentivement à ne pas avoir de conflits dnas les noms d'étapes.
+Bien que Yadda puisse prendre en charge de nombreuses bibliothèques, Moonraker charge actuellement toutes les définitions d'étapes trouvées dans votre répertoire d'étapes dans une seule grosse bibliothèque si bien que, tout comme avec Cucumber, vous devez veiller attentivement à ne pas avoir de conflits dans les noms d'étapes.
 
 ### Objets page 
 
@@ -150,7 +158,7 @@ module.exports = new Page({
   url: { value: '/' },
 
   txtSearch: { get: function () { return this.element("input[id='txtSearch']"); } },
-  btnSearch: { get: function () { return this.element("button[class='btn-primary']"); } },
+  btnSearch: { get: function () { return this.element('btn-primary', 'className'); } },
 
   searchFor: { value: function (query) {
     this.txtSearch.sendKeys(query);
@@ -160,9 +168,9 @@ module.exports = new Page({
 });
 ```
 
-Chaque page possède une url, certains éléments et des méthodes utilitaures dont vous pourriez avoir besoin.
+Chaque page possède une url, certains éléments et des méthodes utilitaires dont vous pourriez avoir besoin.
 
-Les éléments sont récupérés en utilisant des sélecteurs css et retourne un web-element selenium avec lesquels on peut interagir [comme à l'acoutumée](https://code.google.com/p/selenium/wiki/WebDriverJs). Une référence complète peut être trouvée [plus loin](#référence-des-objets-page).
+Les éléments sont récupérés en utilisant des sélecteurs CSS (ou, optionnellement, en indiquant un autre type de sélecteur) et retourne un web-element selenium avec lequel on peut interagir [comme à l'acoutumée](https://code.google.com/p/selenium/wiki/WebDriverJs). Une référence complète peut être trouvée [plus loin](#référence-des-objets-page).
 
 Vous pouvez alors utiliser vos objets page dans vos définitions d'étapes:
 
@@ -180,7 +188,7 @@ exports.define = function (steps) {
   steps.when("I search for '$query'", function (query) {
     homePage.txtSearch.sendKeys(query);
     homePage.btnSearch.click();
-    // Or use homePage.searchFor(query);
+    // Ou utilisez homePage.searchFor(query);
   });
 
   steps.then("I should see '$heading' in the heading", function (heading) {
@@ -224,11 +232,11 @@ module.exports = new Page({
 ```
 
 Les Components sont ajoutés à une page exactement de la même façon que les éléments mais en utilisant:
-`this.component(component, rootNode)` où 'component' est votre objet component et 'rootNode' est un sélecteur css représentant votre noeud racine des composants dans la page.
+`this.component(component, rootNode)` où 'component' est votre objet component et 'rootNode' est un sélecteur CSS représentant votre noeud racine des composants dans la page.
 
 Tous les éléments de votre composant ont leur portée limitée à ce rootNode si bien que dans l'exemple précédent, l'élément `selLanguage` avec son sélecteur `.locale select` ne sera trouvé que dans l''élément `section[class='header']`.
 
-Votre composant peut ensuite être réutilisé dans vos objets pages et peuvent apparaître à différents endroit de la page.
+Votre composant peut ensuite être réutilisé dans vos objets pages et peuvent apparaître à différents endroits de la page.
 
 Utiliser vos composants:
 
@@ -250,6 +258,22 @@ exports.define = function (steps) {
 });
 
 ```
+### Etiquettes de fonctionnalités
+
+Moonraker prend en charge les étiquettes de fonctionnalités (tags) pour vous permettre d'organiser les choses et de n'exécuter que certaines fonctionnalités que vous aurez choisies:
+
+```
+@testing
+Feature: Searching from the homepage
+
+ Scenario: Simple Search
+
+ Given I visit the home page
+ ...
+```
+
+Dans votre config.json (ou en le surchargeant via des paramètres en ligne de commande / des variables d'environnement), vous pouvez préciser "tags": "@testing"` ponr n'exécuter que les fonctionnalités qui possèdent cette étiquette ou utiliser `'!@testing'` pour les ignorer. Vous pouvez également utiliser une liste séparée par des virgules - `@accounts,@booking` etc. Les fonctionnalités marquées comme `@Pending` seront ignorées mais incluses comme des fonctionnalités en attente dans le rapport de tests de Moonraker.
+
 
 ### Assertions
 
@@ -298,17 +322,17 @@ exports.define = (steps) ->
 
 Moonraker a été conçu en ayant la vitesse en tête et gère la parallélisation des tests. Pour tirer avantage de ceci, vous avez simplement besoin d'augmenter le nombre de processus dans la configuration.
 
-Moonraker va répartir vos fichiers de fonctionnalités selon le nombre de processus fixé et démarre un nouveau processus fils (et un nouveau navigateur) pour chaque. Si vous avez 4 fichiers de fonctionnalités et que vous voulez utiliser 2 processus, 2 fonctionnalités seront exécutées par processus / navigateur.
+Moonraker va répartir vos fichiers de fonctionnalités selon le nombre de processus fixé et démarre un nouveau processus fils (et un nouveau navigateur) pour chacun. Si vous avez 4 fichiers de fonctionnalités et que vous voulez utiliser 2 processus, 2 fonctionnalités seront exécutées par processus / navigateur.
 
-La parallélisation des tests fonctionnent comme attendu avec les connexions des pilotes distants de la même façon que localement. Si vous disposez de ressources matérielles suffisamment puissantes sur lesquelles exécuter vos tests et en plus, une instance d'une grille selenium haute performance sur laquelle ouvrir des connexion, vous pouvez réduire de manière spectaculaire les temps d'exécution de vos tests.
+La parallélisation des tests fonctionne comme attendu avec les connexions des pilotes distants de la même façon que localement. Si vous disposez de ressources matérielles suffisamment puissantes sur lesquelles exécuter vos tests et en plus, une instance d'une grille selenium haute performance sur laquelle ouvrir des connexion, vous pouvez réduire de manière spectaculaire les temps d'exécution de vos tests.
 
-Au mieux, vous ne serez cependant pas plus rapide que votre plus longue exécution de fonctionnalité, donc si vous avez des fonctionnalités comme des tonnes de scénario, vous devriez penser à les répartir dans des fichiers de fonctionnalités plus petits et plus facilement gérables.
+Au mieux, vous ne serez cependant pas plus rapide que votre plus longue exécution de fonctionnalité, donc si vous avez des fonctionnalités contenant des tonnes de scénarios, vous devriez penser à les répartir dans des fichiers de fonctionnalités plus petits et plus facilement gérables.
 
 ### Génération de rapports
 
 Comme les tests sont exécutés en utilisant Mocha, vous pouvez utiliser n'importe lequel des [reporters](http://mochajs.org/#reporters) de Mocha.
 Configurez simplement le reporter nécessaire dans la configuration.
-Cependant, comme Mocha est conçu pour une exécution en série, vous rencontrerez des problèmes en exécutant Moonraker en parallèle, donc Moonraker fournit avec
+Cependant, comme Mocha est conçu pour une exécution en série, vous rencontrerez des problèmes en exécutant Moonraker en parallèle, donc Moonraker fournit
 son propre reporter adapté pour Mocha.
 
 Pour l'utiliser, configurez le reporter dans votre configuration `moonraker`. Ce reporter comporte une sortie console semblable à celle de Mocha spec et un rapport html est enregistré dans votre répertoire des résultats: 
@@ -331,34 +355,30 @@ module.exports = new Page({
   aTxtInput:  { get: function () { return this.element("input[id='txtSearch']"); } },
   buttons:    { get: function () { return this.elements("button"); } },
   aSelect:    { get: function () { return this.select("select[name='rt-child']"); } },
-  aLink:      { get: function () { return this.link("London Hotels"); } },
   aComponent: { get: function () { return this.component(yourComponent, "div[class='container']"); } },
 
   onLoad: { value: function () {
-    // Some code I want to run when the page is loaded.
+    // du code à exécuter immédiatement après que la page a été chargée.
   } }
 
 });
 ```
 
-* Configurer une valeur d'url sert au moment d'appeler `visit()` dans votr objet page, par exemple: `examplePage.visit();`. Ces url sont relatives à baseUrl indiquée dans votre config, mais si vous indiquez une url complète telle que `http://www.example.com` baseUrl sera ignoré. De plus, `visit()` accepte un objet requête optionel : `examplePage.visit({ foo: 'bar', baz: 'qux' });` ira sur `http://yourBaseUrl/search?foo=bar&baz=qux`.
+* Configurer une valeur d'url sert au moment d'appeler `visit()` dans votre objet page, par exemple: `examplePage.visit();`. Ces url sont relatives à baseUrl indiquée dans votre config, mais si vous indiquez une url complète telle que `http://www.example.com` baseUrl sera ignoré. De plus, `visit()` accepte un objet requête optionel : `examplePage.visit({ foo: 'bar', baz: 'qux' });` ira sur `http://yourBaseUrl/search?foo=bar&baz=qux`.
 
-* `element(cssSelector)` - est utilisé pour trouver un élément sp"cifique en utilisant un sélecteur css et renvoyé un élément selenium. Par exemple: `examplePage.aTxtInput.click();`
-
-* `elements(cssSelector)` - est utilisé pour trouver tous les éléments qui correspondent à ce sélecteur et renvoyé une collection des éléments selenium. Par exemple:
+* `element(selecteur, type)` - est utilisé pour trouver un élément particulier via un type de sélecteur et retourne un web-élement selenium. Le type est facultatif et s'il n'est pas précisé, le type 'css' est utilisé (comme dans l'exemple précédent). Vous pouvez indiquer un autre type de sélecteur si c'est nécessaire - `this.element('//a/b/c', 'xpath')`. On accède ensuite aux éléments à partir de vos objets pages: `examplePage.aTxtInput.click();`. Tous les types de [sélecteurs Selenium](https://code.google.com/p/selenium/source/browse/javascript/webdriver/locators.js#212) sont pris en charge.
+* `elements(sélecteur, type)` - est utilisé pour trouver tous les éléments de la page qui correspondent à ce sélecteur et renvoyer une collection des web-éléments selenium. Par exemple:
 ```javascript
 examplePage.buttons.then(function (elems) {
   elems.forEach(function (elem) {
     // etc..
   });
 });
-```
+``
+`
+* `select(selecteur, type)` - est identique à `element` mais inclut un utilitaire `selectOption(optionValue)` pour faciliter le choix d'une option selon sa valeur dans vos listes déroulantes. Par exemple: `examplePage.aSelect.selectOption(3);`
 
-* `select(cssSelector)` - est identique à `element` mais inclut un utilitaire `selectOption(optionValue)` pour choisir une option selon sa valeur dans vos listes déroulantes. Par exemple: `examplePage.aSelect.selectOption(3);`
-
-* `link(linkText)` - est utilisé pour trouver des liens à l'aidre du texte partiel ou complet du lien. 
-
-* `component(yourComponent, rootNode)` - Attache un composant que vous avez défini à votre page. Voir [components](#components).
+* `component(votreComponent, rootNode)` - Attache un composant que vous avez défini à votre page. Voir [components](#components).
 
 Il existe quelques méthodes utilitaires additionnelles que vous pouvez utiliser :
 
@@ -395,6 +415,7 @@ session.resizeWindow(320, 480);
 ```
 
 * `execute(fn)` - Ajoute n'importe quelle fonction au flux de contrôle du pilote web. Voir [les flux de contrôle](https://code.google.com/p/selenium/wiki/WebDriverJs#Control_Flows).
+* `defer()` - Renvoie un objet webdriver.promise.defer(). Voir [objets différés](https://code.google.com/p/selenium/wiki/WebDriverJs#Deferred_Objects).
 * `resizeWindow(x, y)` - Redimensionne la fenêtre du navigateur. Par défaut, elle est maximisée.
 * `refresh()` - Rafraîchit la page actuelle.
 * `saveScreenshot(nom_de_fichier)` - Enregistre une capture d'écran dans `/votreRepertoireResults/screenshots/nom_de_fichier`. Ceci est appelé automatiquement en cas d'échec du test.
