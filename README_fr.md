@@ -66,17 +66,20 @@ Moonraker est configuré en utilisant un fichier `config.json` à la racine de v
 }
 ```
 
-* `baseUrl`        - Votre url de base, les urls relatives de vos objets page se baseront sur elle.
-* `featuresDir`    - Le chemin d'accès à votre répertoire de fonctionnalités.
-* `stepsDir`       - Le chemin d'accès à votre répertoire de définitions d'étapes.
-* `resultsDir`     - Le chemin d'accès dans lequel vous souhaitez que vos résultats soient générés.
+* `baseUrl`        - Votre url de base, les urls relatives de vos objets page se baseront sur elle.*
+* `featuresDir`    - Le chemin d'accès à votre répertoire de fonctionnalités.*
+* `stepsDir`       - Le chemin d'accès à votre répertoire de définitions d'étapes.*
+* `resultsDir`     - Le chemin d'accès dans lequel vous souhaitez que vos résultats soient générés. (Valeur par défaut: /results)
 * `reporter`       - Le type de générateur de rapport que vous souhaitez que Moonraker utilise (plus d'information sur ce sujet [plus bas](#génération-de-rapports)).
-* `threads`        - Le nombre de processus que vous souhaitez utiliser pour l'exécution des tests.
-* `tags`           - Liste d'étiquettes de fonctionnalités séparées par des virgules (davantage d'informations à ce sujet [plus bas](#feature-tags)).
-* `testTimeout`    - Le délai maximum de test (étape de scénario) au-delà duquel il sera indiqué en échec (ms).
-* `elementTimeout` - Le temps maximum pendant lequel selenium essaiera de trouver un élément dans une page. 
-* `browser`        - Un objet décrivant les [fonctionnalités souhaitées](https://code.google.com/p/selenium/wiki/DesiredCapabilities) pour votre navigateur.
+* `threads`        - Le nombre de processus que vous souhaitez utiliser pour l'exécution des tests. (Valeur par défaut: 1)
+* `tags`           - Facultatif: liste d'étiquettes de fonctionnalités séparées par des virgules (davantage d'informations à ce sujet [plus bas](#feature-tags)).
+* `testTimeout`    - Le délai maximum de test (étape de scénario) au-delà duquel il sera indiqué en échec (ms). (Valeur par défaut: 60000)
+* `elementTimeout` - Le temps maximum pendant lequel selenium essaiera de trouver un élément dans une page (ms). (Valeur par défaut: 3000) 
+* `browser`        - Un objet décrivant les [fonctionnalités souhaitées](https://code.google.com/p/selenium/wiki/DesiredCapabilities) pour votre navigateur.*
 * `seleniumServer` - Optionel: adresse réseau de votre serveur autonome selenium.
+
+
+\* - Obligatoire
 
 L'exemple de configuration précédent suppose que vous utilisez directement Chrome; pour vous connecter à un serveur selenium distant, ajoutez simplement l'adresse
 de votre serveur à votre `config.json`:
