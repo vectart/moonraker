@@ -1,0 +1,42 @@
+{
+
+  "english": {
+    "title": "Test Report",
+    "duration": "Duration",
+    "threads": "Threads",
+    "feature": "Feature",
+    "scenario": "Scenario",
+    "passed": "Passed",
+    "success": "Success",
+    "failed": "Failed",
+    "pending": "Pending",
+    "skipped": "Skipped"
+  },
+
+  "french": {
+    "title": "Rapport de test",
+    "duration": "Durée",
+    "threads": "Processus",
+    "feature": "Fonctionnalité",
+    "scenario": "Scénario",
+    "passed": "Exécuté",
+    "success": "Succès",
+    "failed": "En échec",
+    "pending": "En attente",
+    "skipped": "Ignoré"
+  },
+
+  "german": {
+    "title": "Prüfbericht",
+    "duration": "Dauer",
+    "threads": "Prozesse",
+    "feature": "Funktionalität",
+    "scenario": "Szenario",
+    "passed": "Bestanden",
+    "success": "Erfolg",
+    "failed": "Fehlgeschlagen",
+    "pending": "Schwebend",
+    "skipped": "Sprungen"
+  }
+
+}
