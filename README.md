@@ -24,12 +24,10 @@ Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 ### Latest version
 
-The current version of Moonraker is 0.2.0. Recent changes include:
-* Locator types can be configured per element:
-    - Instead of just using css selectors you can optionally specify which locator type to use when you set your elements in a page/component object.
-    - E.G - `this.element('//a/b/c', 'xpath');`. If no locator type is supplied the current default of 'css' is used. All of [Selenium's locator](https://code.google.com/p/selenium/source/browse/javascript/webdriver/locators.js#212) types are supported.
-    - Note - The `link(linkText)` page object method has now been removed as this change has made it redundant.
-* Readme was kindly translated to French by [poum](https://github.com/poum).
+The current version of Moonraker is 0.3.0. Recent changes include:
+* I18n support. Features / steps can be written in any language Yadda supports.
+* Moonraker report translations are also supported.
+* French translations (updated readme, i18n examples & report translations) kindly provided by [poum](https://github.com/poum).
 
 
 ### Install
@@ -75,6 +73,7 @@ Moonraker is configured using a `config.json` file in your project root:
 * `elementTimeout` - The maximum time selenium will continuously try to find an element on the page (ms). (Default: 3000)
 * `browser`        - An object describing your browser [desired capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities).*
 * `seleniumServer` - Optional: Address of your remote selenium standalone server.
+* `language`       - Optional: sets the language to use (default: English).
 
 
 \* - Required.
@@ -82,6 +81,8 @@ Moonraker is configured using a `config.json` file in your project root:
 The example configuration above assumes using Chrome directly, to connect to a remote selenium server just add your server address to your `config.json`:
 
 `"seleniumServer": "http://127.0.0.1:4444/wd/hub"`.
+
+You can also set which language to use, using `language`, if you intend to use non English feature & step definition files. A full list of supported languages is available [here](https://github.com/acuminous/yadda/tree/master/lib/localisation).
 
 All of Moonraker's configuration options can be overridden when running your tests (see below) if you add command line args (e.g: `--baseUrl=http://www.example.com` or `--browser.browserName=phantomjs`) or have set environment variables. They will take preference over the `config.json`, in that order - command line args > env vars > config.
 
@@ -339,7 +340,10 @@ To use it set the reporter in your config to `moonraker`. This reporter includes
 
 ![Moonraker report](https://dl.dropboxusercontent.com/u/6598543/report.png)
 
-The html report includes details of any errors and includes browser screen shots.
+The html report includes details of any errors and embedded browser screenshots.
+
+If you are using Moonraker in a non English language (set in the config) the report will try to find matching translations from [this file](https://github.com/LateRoomsGroup/moonraker/blob/master/lib/reporter/i18n/translations.json), defaulting to English if any are missing. Please feel free to contribute any translations that you may require.
+
 
 ### Page object reference
 
