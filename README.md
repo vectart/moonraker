@@ -24,7 +24,7 @@ Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 ### Latest version
 
-The current version of Moonraker is 0.3.0. Recent changes include:
+The current version of Moonraker is 0.3.1. Recent changes include:
 * I18n support. Features / steps can be written in any language Yadda supports.
 * Moonraker report translations are also supported.
 * French translations (updated readme, i18n examples & report translations) kindly provided by [poum](https://github.com/poum).
