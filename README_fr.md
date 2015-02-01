@@ -26,12 +26,10 @@ _note: ceci est la traduction française du [README](./README.md) original_
 
 ### Dernière version
 
-La version actuelle de Moonraker est la 0.2.0. Les changements récents comprennent :
-* Les types de sélecteurs peuvent être configurés élément par élément:
- - Au lieu de ne pouvoir utiliser que les sélecteurs CSS, vous pouvez indiquer de manière optionnelle le type de sélecteur à utiliser quand vous configurez vos éléments dans un objet page/composant.
- - Ex. - `this.element('//a/b/c', 'xpath');`. Si aucun type de sélecteur n'est indiqué, c'est la valeur par défaut actuelle 'css' qui est utilisée. Tous les types de [sélecteurs de Selenium](https://code.google.com/p/selenium/source/browse/javascript/webdriver/locators.js#212) sont pris en charge.
- - Note - La méthode de l'objet page `link(linkText)` est désormais supprimée car la modification précédente l'a rendue redondante.
-* Traduction du Readme en français [poum](https://github.com/poum).
+La version actuelle de Moonraker est la 0.3.1. Les changements récents comprennent :
+* Gestion de l'internationalisation. Les fonctionalités / étapes peuvent être écrites dans n'importe quelle langue que Yadda prend en charge.
+* La traduction des rapports Moonraker est également prise en charge.
+* Les traductions en français (mises à jour de ce README, exemple i18n et traduction des rapports) fournies par [poum](https://github.com/poum).
 
 
 ### Installation
@@ -77,7 +75,7 @@ Moonraker est configuré en utilisant un fichier `config.json` à la racine de v
 * `elementTimeout` - Le temps maximum pendant lequel selenium essaiera de trouver un élément dans une page (ms). (Valeur par défaut: 3000) 
 * `browser`        - Un objet décrivant les [fonctionnalités souhaitées](https://code.google.com/p/selenium/wiki/DesiredCapabilities) pour votre navigateur.*
 * `seleniumServer` - Optionel: adresse réseau de votre serveur autonome selenium.
-
+* `language` - Optionel: indique la langue à utiliser (English par défaut, `French` pour le français).
 
 \* - Obligatoire
 
@@ -85,6 +83,8 @@ L'exemple de configuration précédent suppose que vous utilisez directement Chr
 de votre serveur à votre `config.json`:
 
 `"seleniumServer": "http://127.0.0.1:4444/wd/hub"`.
+
+Vous pouvez également choisir la langue à utiliser avec `language`, si vous avez l'intention d'utiliser des fichiers de définition de fonctionalités ou d'étapes qui ne sont pas en anglais. La liste complète des langues prises en charge est disponibile [ici](https://github.com/acuminous/yadda/tree/master/lib/localisation).
 
 Toutes les options de configuration de Moonraker peuvent être surchargées pendant l'exécution de vos tests (voir plus loin) en utilisant des paramètres à la ligne de commandes (par ex. : `--baseUrl=http://www.example.com` ou `--browser.browserName=phantomjs`) ou en renseignant des variables d'environnement. Ces configurations ont précédence sur celles de `config.json` dans cet ordre: paramètres de la ligne de commande > variables d'environnement > config.
 
@@ -343,6 +343,8 @@ Pour l'utiliser, configurez le reporter dans votre configuration `moonraker`. Ce
 ![rapport Moonraker](https://dl.dropboxusercontent.com/u/6598543/report.png)
 
 Le rapport html comporte les détails de toutes les erreurs et les captures d'écran du navigateur.
+
+Si vous utilisez Moonraker dans une autre langue que l'anglais (indiquée dans la config), le rapport essaiera de trouver les traductions correspondantes dans [ce fichier](https://github.com/LateRoomsGroup/moonraker/blob/master/lib/reporter/i18n/translations.json), et se rabattra sur l'anglais pouur celles qui manquent. Vous êtes encouragé à contribuer pour ajouter les traductions dont vous pourriez avoir besoin.
 
 ### Référence des objets page
 
