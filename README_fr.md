@@ -379,8 +379,8 @@ examplePage.buttons.then(function (elems) {
     // etc..
   });
 });
-``
-`
+```
+
 * `select(selecteur, type)` - est identique à `element` mais inclut un utilitaire `selectOption(optionValue)` pour faciliter le choix d'une option selon sa valeur dans vos listes déroulantes. Par exemple: `examplePage.aSelect.selectOption(3);`
 
 * `component(votreComponent, rootNode)` - Attache un composant que vous avez défini à votre page. Voir [components](#components).
