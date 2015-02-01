@@ -19,11 +19,11 @@
     "threads": "Processus",
     "feature": "Fonctionnalité",
     "scenario": "Scénario",
-    "passed": "Exécuté",
+    "passed": "Exécutés",
     "success": "Succès",
     "failed": "En échec",
     "pending": "En attente",
-    "skipped": "Ignoré"
+    "skipped": "Ignorés"
   },
 
   "german": {
