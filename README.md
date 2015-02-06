@@ -8,7 +8,6 @@ Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 * [Install](#install)
 * [Configure](#configure)
-* [BrowserStack Automate](#browserstack-automate)
 * [Run](#run-your-tests)
 * [Example Project](#example-project)
 * [Writing Your Tests](#writing-your-tests)
@@ -89,7 +88,7 @@ All of Moonraker's configuration options can be overridden when running your tes
 
 You can also add whatever you like to the config and access it in your code using: `var config = require('moonraker').config;`.
 
-### BrowserStack Automate
+#### BrowserStack Automate
 
 To use [BrowserStack Automate](https://www.browserstack.com/automate) service, you can configure its server URL and access details:
 
