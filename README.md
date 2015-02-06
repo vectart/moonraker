@@ -8,6 +8,7 @@ Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 * [Install](#install)
 * [Configure](#configure)
+* [BrowserStack Automate](#browserstack-automate)
 * [Run](#run-your-tests)
 * [Example Project](#example-project)
 * [Writing Your Tests](#writing-your-tests)
@@ -75,7 +76,6 @@ Moonraker is configured using a `config.json` file in your project root:
 * `seleniumServer` - Optional: Address of your remote selenium standalone server.
 * `language`       - Optional: sets the language to use (default: English).
 
-
 \* - Required.
 
 The example configuration above assumes using Chrome directly, to connect to a remote selenium server just add your server address to your `config.json`:
@@ -87,6 +87,27 @@ You can also set which language to use, using `language`, if you intend to use n
 All of Moonraker's configuration options can be overridden when running your tests (see below) if you add command line args (e.g: `--baseUrl=http://www.example.com` or `--browser.browserName=phantomjs`) or have set environment variables. They will take preference over the `config.json`, in that order - command line args > env vars > config.
 
 You can also add whatever you like to the config and access it in your code using: `var config = require('moonraker').config;`.
+
+### BrowserStack Automate
+
+To use [BrowserStack Automate](https://www.browserstack.com/automate) service, you can configure its server URL and access details:
+
+* `browserstack.user` - sets BrowserStack username.
+* `browserstack.key`  - sets BrowserStack access user.
+
+```json
+{
+  "seleniumServer": "http://hub.browserstack.com/wd/hub",
+
+  "browser": {
+    "browserstack.user": "",
+    "browserstack.key": "",
+    "browserName": "chrome"
+  }
+}
+```
+
+More details on available browser capabilities may be found on [BrowserStack Node.js module documentation](https://www.browserstack.com/automate/node).
 
 ### Run your tests
 

@@ -1,4 +1,4 @@
-var config       = require('moonraker').config,
+var config       = require('../lib/moonraker').config,
     childProcess = require('child_process'),
     fs           = require('fs'),
     path         = require('path'),
