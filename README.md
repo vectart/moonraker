@@ -3,7 +3,7 @@
 An easy to use lightweight web testing framework for Node, designed for speed, maintainability and collaboration.
 Bringing together everything you need out of the box - familiar BDD features/scenarios, a simple page object library, parallel testing and pretty reports.
 
-Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs), [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/).
+Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs), [BrowserStack-Webdriver](https://github.com/browserstack/selenium-webdriver-nodejs), [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/).
 
 
 * [Install](#install)
