@@ -93,7 +93,7 @@ You can also add whatever you like to the config and access it in your code usin
 To use [BrowserStack Automate](https://www.browserstack.com/automate) service, you can configure its server URL and access details:
 
 * `browserstack.user` - sets BrowserStack username.
-* `browserstack.key`  - sets BrowserStack access user.
+* `browserstack.key`  - sets BrowserStack access key.
 
 ```json
 {
