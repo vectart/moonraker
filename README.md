@@ -7,15 +7,16 @@ Integrating [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 
 * [Install](#install)
+* [Example Project](#example-project)
 * [Configure](#configure)
 * [Run](#run-your-tests)
-* [Example Project](#example-project)
 * [Writing Your Tests](#writing-your-tests)
 * [Page Objects](#page-objects)
 * [Components](#components)
 * [Feature Tags](#feature-tags)
 * [Assertions](#assertions)
 * [CoffeeScript](#coffeescript)
+* [Saucelabs / Browserstack integration](#saucelabs--browserstack-integration)
 * [Running your tests in parallel](#running-your-tests-in-parallel)
 * [Reporting](#reporting)
 * [Page object reference](#page-object-reference)
@@ -35,6 +36,13 @@ The current version of Moonraker is 0.3.2. Recent changes include:
 
 Moonraker can be installed via [npm](https://www.npmjs.org/) - `$ npm install moonraker`, or add `moonraker` to your `package.json`.
 
+### Example project
+
+You will find a full example project in the `example/basic` directory with everything you need to start using Moonraker - sample feature, step definitions, page objects and config in a suggested project structure.
+
+The example tests use Chrome, so you will need the latest [chromedriver](http://chromedriver.storage.googleapis.com/index.html) downloaded and available on your path.
+
+`npm install` then `npm test` from within the example directory to run the sample feature.
 
 ### Configure
 
@@ -83,6 +91,8 @@ The example configuration above assumes using Chrome directly, to connect to a r
 
 `"seleniumServer": "http://127.0.0.1:4444/wd/hub"`.
 
+You can use this to connect to cloud service providers like [Saucelabs](https://saucelabs.com/) and [Browserstack](https://www.browserstack.com/automate). Please see [below]() for example browser configurations.
+
 You can also set which language to use, using `language`, if you intend to use non English feature & step definition files. A full list of supported languages is available [here](https://github.com/acuminous/yadda/tree/master/lib/localisation).
 
 All of Moonraker's configuration options can be overridden when running your tests (see below) if you add command line args (e.g: `--baseUrl=http://www.example.com` or `--browser.browserName=phantomjs`) or have set environment variables. They will take preference over the `config.json`, in that order - command line args > env vars > config.
@@ -101,12 +111,6 @@ To start Moonraker run `$ node node_modules/moonraker/bin/moonraker.js`, or to m
 }
 ```
 ... so you can simply run `$ npm test`. Note, you cannot pass command line args using the `$ npm test` shortcut.
-
-### Example project
-
-You will find a full example project in the `/example` folder with everything you need to start using Moonraker - sample feature, step definitions, page objects and config in a suggested project structure.
-
-The example tests use Chrome, so you will need the latest [chromedriver](http://chromedriver.storage.googleapis.com/index.html) downloaded and available on your path.
 
 ### Writing your tests
 
@@ -320,6 +324,37 @@ exports.define = (steps) ->
     searchResults.heading.getText().then (text) ->
       text.should.equal heading
 ```
+### Saucelabs / Browserstack integration
+
+To run your tests on cloud service providers like Saucelabs and Browserstack you just need to configure Moonraker with the correct `seleniumServer` address and browser capabilities that include your username/access key:
+
+Saucelabs:
+```json
+"seleniumServer": "http://ondemand.saucelabs.com:80/wd/hub",
+
+  "browser": {
+    "username": "USERNAME",
+    "accessKey": "KEY",
+    "browserName": "safari",
+    "version": "8.0",
+    "platform": "OS X 10.10"
+  }
+```
+Browserstack:
+```json
+"seleniumServer": "http://hub.browserstack.com/wd/hub",
+
+  "browser": {
+    "browserstack.user": "USERNAME",
+    "browserstack.key": "KEY",
+    "browserName": "Safari",
+    "browser_version": "8.0",
+    "os": "OS X",
+    "os_version": "Yosemite",
+    "resolution": "1920x1080"
+  }
+```
+Note: As you can see in these examples each provider specifies capabilites differently so you will need to refer to your provider documentation.
 
 ### Running your tests in parallel
 
