@@ -7,6 +7,7 @@ Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 
 
 * [Installation](#installation)
+* [Exemple projet](#exemple-projet)
 * [Configuration](#configuration)
 * [Exécution de vos tests](#exécution-de-vos-tests)
 * [Projet exemple](#projet-exemple)
@@ -16,6 +17,7 @@ Il intègre [Yadda](https://github.com/acuminous/yadda), [Selenium-Webdriver](ht
 * [Etiquettes de fonctionnalités](#etiquettes-de-fonctionnalités)
 * [Assertions](#assertions)
 * [CoffeeScript](#coffeescript)
+* [Intégration avec Saucelabs / Browserstack](#integration-avec-saucelabs--browserstack)
 * [Exécution de vos tests en parallèle](#exécution-de-vos-tests-en-parallèle)
 * [Génération des rapports](#génération-de-rapports)
 * [Référence des objets page](#référence-des-objets-page)
@@ -26,16 +28,24 @@ _note: ceci est la traduction française du [README](./README.md) original_
 
 ### Dernière version
 
-La version actuelle de Moonraker est la 0.3.1. Les changements récents comprennent :
+La version actuelle de Moonraker est la 0.3.2. Les changements récents comprennent :
 * Gestion de l'internationalisation. Les fonctionalités / étapes peuvent être écrites dans n'importe quelle langue que Yadda prend en charge.
 * La traduction des rapports Moonraker est également prise en charge.
 * Les traductions en français (mises à jour de ce README, exemple i18n et traduction des rapports) fournies par [poum](https://github.com/poum).
+* Patch/fix fourni par [vectart](https://github.com/vectart)
 
 
 ### Installation
 
 Moonraker peut être installé en utilisant [npm](https://www.npmjs.org/) - `$ npm install moonraker` ou en ajoutant `moonraker` dans votre `package.json`.
 
+### Exemple projet
+
+Vous trouverez un exemple de projet complet dans le répertoire `example/basic` qui contient tout ce dont vous avez besoin pour commencer à utiliser Moonraker - exemple de fonctionnalité, définitions d'étapes, objets pages et un fichier de configuration dans une structure projet conseillée.
+
+Les tests de l'exemple font appel à Chrome, si bien que vous aurez besoin d'avoir installé et mis dans votre PATH la dernière version de [chromedriver](http://chromedriver.storage.googleapis.com/index.html).
+
+`npm install` puis `npm test` depuis le répertoire de l'exemple pour lancer la fonctionnalité fournie à titre d'exemple.
 
 ### Configuration
 
@@ -83,6 +93,8 @@ L'exemple de configuration précédent suppose que vous utilisez directement Chr
 de votre serveur à votre `config.json`:
 
 `"seleniumServer": "http://127.0.0.1:4444/wd/hub"`.
+
+Vous pouvez utiliser ceci pour vous connecter à des fournisseurs de services du cloud tels que [Saucelabs](https://saucelabs.com/) et [Browserstack](https://www.browserstack.com/automate). Voir [plus loin](#integration-avec-saucelabs--browserstack) pour des exemples de configuration du navigateur.
 
 Vous pouvez également choisir la langue à utiliser avec `language`, si vous avez l'intention d'utiliser des fichiers de définition de fonctionalités ou d'étapes qui ne sont pas en anglais. La liste complète des langues prises en charge est disponibile [ici](https://github.com/acuminous/yadda/tree/master/lib/localisation).
 
@@ -321,6 +333,46 @@ exports.define = (steps) ->
       text.should.equal heading
 ```
 
+### Intégration Saucelabs / Browserstack
+
+Pour lancer vos tests chez des fournisseurs de services du cloud tels que [Saucelabs](https://saucelabs.com/) ou [Browserstack](https://www.browserstack.com/automate), vous avez seulement besoin de configurer Moonraker avec l'adresse `seleniumServer` appropriée et des `browser capabilities` qui incluent votre identifiant et votre clef d'accès:
+
+Saucelabs:
+
+```json
+"seleniumServer": "http://ondemand.saucelabs.com:80/wd/hub",
+
+  "browser": {
+    "username": "USERNAME",
+    "accessKey": "KEY",
+    "browserName": "safari",
+    "version": "8.0",
+    "platform": "OS X 10.10"
+  }
+```
+
+Browserstack:
+
+```json
+"seleniumServer": "http://hub.browserstack.com/wd/hub",
+
+  "browser": {
+    "browserstack.user": "USERNAME",
+    "browserstack.key": "KEY",
+    "browserName": "Safari",
+    "browser_version": "8.0",
+    "os": "OS X",
+    "os_version": "Yosemite",
+    "resolution": "1920x1080"
+  }
+```
+
+Note: Comme vous pouvez le constater dans ces exemples, chaque fournisseur indique de manière différente les capacités de telle sorte que vous aurez besoin de vous référer à la documentation de votre fournisseur:
+
+https://docs.saucelabs.com/reference/platforms-configurator/
+
+http://www.browserstack.com/automate/capabilities
+
 ### Exécution de vos tests en parallèle
 
 Moonraker a été conçu en ayant la vitesse en tête et gère la parallélisation des tests. Pour tirer avantage de ceci, vous avez simplement besoin d'augmenter le nombre de processus dans la configuration.
@@ -437,5 +489,5 @@ session.currentUrl(function (url) {
 
 ### A FAIRE 
 
-* D'autres utilitaires pour les éléments - intégration du nouveau module [until](https://github.com/SeleniumHQ/selenium/blob/master/javascript/node/selenium-webdriver/CHANGES.md#v2440) module.
+* D'autres utilitaires pour les éléments - intégration du nouveau module [until](https://github.com/SeleniumHQ/selenium/blob/master/javascript/node/selenium-webdriver/CHANGES.md#v2440).
 * D'autres exemples de fonctionnalités, d'étapes et de pages.
