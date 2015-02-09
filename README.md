@@ -326,7 +326,7 @@ exports.define = (steps) ->
 ```
 ### Saucelabs / Browserstack integration
 
-To run your tests on cloud service providers like Saucelabs and Browserstack you just need to configure Moonraker with the correct `seleniumServer` address and browser capabilities that include your username/access key:
+To run your tests on cloud service providers like [Saucelabs](https://saucelabs.com/) and [Browserstack](https://www.browserstack.com/automate) you just need to configure Moonraker with the correct `seleniumServer` address and browser capabilities that include your username/access key:
 
 Saucelabs:
 ```json
@@ -354,7 +354,11 @@ Browserstack:
     "resolution": "1920x1080"
   }
 ```
-Note: As you can see in these examples each provider specifies capabilites differently so you will need to refer to your provider documentation.
+Note: As you can see in these examples each provider specifies capabilites differently so you will need to refer to your provider documentation:
+
+https://docs.saucelabs.com/reference/platforms-configurator/
+
+http://www.browserstack.com/automate/capabilities
 
 ### Running your tests in parallel
 
