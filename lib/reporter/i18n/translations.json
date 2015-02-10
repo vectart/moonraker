@@ -10,7 +10,9 @@
     "success": "Success",
     "failed": "Failed",
     "pending": "Pending",
-    "skipped": "Skipped"
+    "skipped": "Skipped",
+    "Error": "Error",
+    "Screenshot": "Screenshot"
   },
 
   "french": {
@@ -23,7 +25,9 @@
     "success": "Succès",
     "failed": "En échec",
     "pending": "En attente",
-    "skipped": "Ignorés"
+    "skipped": "Ignorés",
+    "Error": "Erreur",
+    "Screenshot": "Capture d'écran"
   },
 
   "german": {
@@ -36,7 +40,9 @@
     "success": "Erfolg",
     "failed": "Fehlgeschlagen",
     "pending": "Schwebend",
-    "skipped": "Sprungen"
+    "skipped": "Sprungen",
+    "Error": "Error",
+    "Screenshot": "Screenshot"
   }
 
 }
