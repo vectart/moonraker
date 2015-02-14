@@ -37,6 +37,19 @@
     "failed": "Fehlgeschlagen",
     "pending": "Schwebend",
     "skipped": "Sprungen"
+  },
+
+  "russian": {
+    "title": "Отчёт о тестировании",
+    "duration": "Время",
+    "threads": "Потоки",
+    "feature": "Функционал",
+    "scenario": "Сценарий",
+    "passed": "Пройдено",
+    "success": "Успешно",
+    "failed": "Провал",
+    "pending": "В ожидании",
+    "skipped": "Пропущен"
   }
 
 }
