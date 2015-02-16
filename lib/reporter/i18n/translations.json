@@ -11,8 +11,8 @@
     "failed": "Failed",
     "pending": "Pending",
     "skipped": "Skipped",
-    "Error": "Error",
-    "Screenshot": "Screenshot"
+    "error": "Error",
+    "screenshot": "Screenshot"
   },
 
   "french": {
@@ -26,8 +26,8 @@
     "failed": "En échec",
     "pending": "En attente",
     "skipped": "Ignorés",
-    "Error": "Erreur",
-    "Screenshot": "Capture d'écran"
+    "error": "Erreur",
+    "screenshot": "Capture d'écran"
   },
 
   "german": {
@@ -41,8 +41,8 @@
     "failed": "Fehlgeschlagen",
     "pending": "Schwebend",
     "skipped": "Sprungen",
-    "Error": "Error",
-    "Screenshot": "Screenshot"
+    "error": "Error",
+    "screenshot": "Screenshot"
   },
 
   "russian": {
@@ -55,7 +55,9 @@
     "success": "Успешно",
     "failed": "Провал",
     "pending": "В ожидании",
-    "skipped": "Пропущен"
+    "skipped": "Пропущен",
+    "error": "Error",
+    "screenshot": "Screenshot"
   }
 
 }
