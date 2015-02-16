@@ -18,7 +18,7 @@
   },
   "main": "lib/moonraker.js",
   "dependencies": {
-    "yadda": "0.11.4",
+    "yadda": "0.11.5",
     "selenium-webdriver": "2.44.0",
     "mocha": "2.1.0",
     "chai": "1.10.0",
