@@ -56,8 +56,8 @@
     "failed": "Провал",
     "pending": "В ожидании",
     "skipped": "Пропущен",
-    "error": "Error",
-    "screenshot": "Screenshot"
+    "error": "Ошибка",
+    "screenshot": "Скриншот"
   }
 
 }
